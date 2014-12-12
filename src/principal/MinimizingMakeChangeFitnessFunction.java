@@ -83,6 +83,9 @@ public class MinimizingMakeChangeFitnessFunction extends FitnessFunction {
 		if (changeAmount == m_targetAmount) {
 			fitness += 100 - (10 * totalCoins);
 		}
+		if(fitness<0){
+			fitness=0;
+		}
 
 		return fitness;
 	}
@@ -101,6 +104,8 @@ public class MinimizingMakeChangeFitnessFunction extends FitnessFunction {
 		int numDimes = getNumberOfCoinsAtGene(a_potentialSolution, 1);
 		int numNickels = getNumberOfCoinsAtGene(a_potentialSolution, 2);
 		int numPennies = getNumberOfCoinsAtGene(a_potentialSolution, 3);
+		
+		//System.out.println(numQuarters+"  "+numDimes+"  "+numNickels+"  "+numPennies);
 
 		return (numQuarters * 25) + (numDimes * 10) + (numNickels * 5)
 				+ numPennies;

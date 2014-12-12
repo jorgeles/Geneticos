@@ -9,6 +9,7 @@ import org.jgap.Gene;
 import org.jgap.Genotype;
 import org.jgap.IChromosome;
 import org.jgap.InvalidConfigurationException;
+import org.jgap.RandomGenerator;
 import org.jgap.impl.DefaultConfiguration;
 import org.jgap.impl.IntegerGene;
 
@@ -18,7 +19,8 @@ import java.util.Scanner;
 
 public class Main {
 
-	private static final int MAX_ALLOWED_EVOLUTIONS = 10;
+	private static final int MAX_ALLOWED_EVOLUTIONS = 100;
+	private static MyRandom randomGenerator = new MyRandom();
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -40,6 +42,12 @@ public class Main {
 		// most common settings.
 		// -------------------------------------------------------------
 		Configuration conf = new DefaultConfiguration();
+		try {
+			conf.setRandomGenerator(randomGenerator);
+		} catch (InvalidConfigurationException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 
 		// Set the fitness function we want to use, which is our
 		// MinimizingMakeChangeFitnessFunction that we created earlier.
@@ -71,9 +79,9 @@ public class Main {
 		Gene[] sampleGenes = new Gene[4];
 
 		try {
-			sampleGenes[0] = new IntegerGene(conf, 0, 3);
-			sampleGenes[1] = new IntegerGene(conf, 0, 2); // Dimes
-			sampleGenes[2] = new IntegerGene(conf, 0, 1); // Nickels
+			sampleGenes[0] = new IntegerGene(conf, 0, 4);
+			sampleGenes[1] = new IntegerGene(conf, 0, 4); // Dimes
+			sampleGenes[2] = new IntegerGene(conf, 0, 4); // Nickels
 			sampleGenes[3] = new IntegerGene(conf, 0, 4); // Pennies
 			
 
