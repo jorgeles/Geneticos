@@ -20,7 +20,7 @@ import java.util.Scanner;
 public class Main {
 
 	private static final int MAX_ALLOWED_EVOLUTIONS = 100;
-	private static MyRandom randomGenerator = new MyRandom();
+	//private static MyRandom randomGenerator = new MyRandom();
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -38,23 +38,24 @@ public class Main {
 		 * sc.close(); } catch (FileNotFoundException e) { // TODO
 		 * Auto-generated catch block e.printStackTrace(); }
 		 */
+		
 		// Start with a DefaultConfiguration, which comes setup with the
 		// most common settings.
 		// -------------------------------------------------------------
-		Configuration conf = new DefaultConfiguration();
+		/*Configuration conf = new DefaultConfiguration();
 		try {
 			conf.setRandomGenerator(randomGenerator);
 		} catch (InvalidConfigurationException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
-		}
+		}*/
 
 		// Set the fitness function we want to use, which is our
 		// MinimizingMakeChangeFitnessFunction that we created earlier.
 		// We construct it with the target amount of change provided
 		// by the user.
 		// ------------------------------------------------------------
-		int targetAmount = Integer.parseInt("20");
+		/*int targetAmount = Integer.parseInt("20");
 		FitnessFunction myFunc = new MinimizingMakeChangeFitnessFunction(
 				targetAmount);
 
@@ -128,9 +129,16 @@ public class Main {
 		} catch (InvalidConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} // Quarters
+		} // Quarters*/
 		
-
+		int max = 150;
+		int min = 0;
+		int poblacion = 500;
+		ArrayList<ArrayList<Integer>> permutaciones = new ArrayList<ArrayList<Integer>>();
+		Permutaciones permutacion = new Permutaciones();
+		for(int i=0; i<poblacion; i++){
+			permutaciones.add(permutacion.Permutacion(max, min, max+1));
+		}
 	}
 
 }

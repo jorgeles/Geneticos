@@ -9,6 +9,14 @@ public class MyRandom implements RandomGenerator {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	int Max;
+	int Min;
+	
+	public MyRandom(int max, int min){
+		Max = max;
+		Min = min;
+	}
 
 	@Override
 	public boolean nextBoolean() {
@@ -19,10 +27,7 @@ public class MyRandom implements RandomGenerator {
 	@Override
 	public double nextDouble() {
 		// TODO Auto-generated method stub
-		Random rnd = new Random();
-		Double number = (double) (rnd.nextInt((4 - 0) + 1) + 0);
-		double p = number/4.0;
-		return p;
+		return 0.0;
 	}
 
 	@Override
@@ -34,7 +39,10 @@ public class MyRandom implements RandomGenerator {
 	@Override
 	public int nextInt() {
 		// TODO Auto-generated method stub
-		return 0;
+		Random rnd = new Random();
+		int number = rnd.nextInt((Max - Min) + 1) + Min;
+		return number;
+		
 	}
 
 	@Override
