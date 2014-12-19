@@ -113,6 +113,7 @@ public class Main {
 		ArrayList<ArrayList<Integer>> pesos = new ArrayList<ArrayList<Integer>>();
 		int cantidad = 0;
 		Fitness fit = new Fitness();
+		Evolucion evo = new Evolucion();
 
 		try {
 			Scanner sc = new Scanner(new File("bur26a.dat"));
@@ -135,10 +136,14 @@ public class Main {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		int max = cantidad-1;
+		int max = cantidad - 1;
 		int min = 0;
 		int poblacion = 500;
+		int iteraciones = 20;
 		ArrayList<Ciudadano> permutaciones = new ArrayList<Ciudadano>();
+		/*
+		 * Genero los primeros ciudadanos
+		 */
 		Permutaciones permutacion = new Permutaciones();
 		for (int i = 0; i < poblacion; i++) {
 			Ciudadano aux = new Ciudadano();
@@ -155,10 +160,36 @@ public class Main {
 				// TODO Auto-generated method stub
 				Ciudadano p1 = (Ciudadano) o1;
 				Ciudadano p2 = (Ciudadano) o2;
-				return new Integer(p1.myfitness).compareTo(new Integer(p2.myfitness));
+				return new Integer(p1.myfitness).compareTo(new Integer(
+						p2.myfitness));
 			}
 		});
-		for(int i=0; i<permutaciones.size(); i++){
+
+		for (int i = 0; i < iteraciones; i++) {
+			/*
+			 * Genero poblacion nueva
+			 */
+			evo.GenerarPoblacion(permutaciones, distancias, pesos);
+			/*
+			 * Compara los ciudadanos y los odeno en fución de su fitness
+			 */
+			Collections.sort(permutaciones, new Comparator<Object>() {
+				@Override
+				public int compare(Object o1, Object o2) {
+					// TODO Auto-generated method stub
+					Ciudadano p1 = (Ciudadano) o1;
+					Ciudadano p2 = (Ciudadano) o2;
+					return new Integer(p1.myfitness).compareTo(new Integer(
+							p2.myfitness));
+				}
+			});
+			
+			for(int j=permutaciones.size()-1; j>=poblacion; j--){
+				permutaciones.remove(j);
+			}
+		}
+
+		for (int i = 0; i < permutaciones.size(); i++) {
 			System.out.println(permutaciones.get(i).myfitness);
 		}
 	}
