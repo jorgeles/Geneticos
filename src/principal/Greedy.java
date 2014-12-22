@@ -18,10 +18,10 @@ public class Greedy {
 				.clone();
 		miciudadano2.myfitness = ciudadano.myfitness;
 
-		for (int i = 0; i < miciudadano.mypermutaciones.size(); i=i+10) {
+		for (int i = 0; i < miciudadano.mypermutaciones.size(); i++) {
 			miciudadano2.mypermutaciones = (ArrayList<Integer>) miciudadano.mypermutaciones
 					.clone();
-			for (int j = i + 1; j < miciudadano.mypermutaciones.size() || j<26; j++) {
+			for (int j = i + 1; j < miciudadano.mypermutaciones.size(); j++) {
 				int aux = miciudadano2.mypermutaciones.get(i);
 				miciudadano2.mypermutaciones.remove(i);
 				miciudadano2.mypermutaciones.add(i, miciudadano2.mypermutaciones.get(j-1));
