@@ -9,7 +9,8 @@ public class Evolucion {
 			ArrayList<ArrayList<Integer>> pesos) {
 
 		Fitness fit = new Fitness();
-		for (int i = 0; i < 25; i++) {
+		int size = permutaciones.size();
+		for (int i = 0; i < 25 || i < size; i++) {
 			Ciudadano aux = new Ciudadano();
 			for (int j = 0; j < permutaciones.get(i).mypermutaciones.size(); j++) {
 				if (j % 2 == 0
@@ -138,7 +139,8 @@ public class Evolucion {
 
 		Greedy greedy = new Greedy();
 		Fitness fit = new Fitness();
-		for (int i = 0; i < 25; i++) {
+		int size = permutaciones.size();
+		for (int i = 0; i < 25 && i < size; i++) {
 			Ciudadano aux = new Ciudadano();
 			for (int j = 0; j < permutaciones.get(i).mypermutaciones.size(); j++) {
 				if (j % 2 == 0
@@ -269,10 +271,10 @@ public class Evolucion {
 	public void GenerarPoblacion3(ArrayList<Ciudadano> permutaciones,
 			ArrayList<ArrayList<Integer>> distancias,
 			ArrayList<ArrayList<Integer>> pesos) {
-
 		Greedy greedy = new Greedy();
 		Fitness fit = new Fitness();
-		for (int i = 0; i < 25; i++) {
+		int size = permutaciones.size();
+		for (int i = 0; i < 25 && i < size; i++) {
 			Ciudadano aux = new Ciudadano();
 			for (int j = 0; j < permutaciones.get(i).mypermutaciones.size(); j++) {
 				if (j % 2 == 0
@@ -327,14 +329,20 @@ public class Evolucion {
 				}
 			}
 			fit.MyFitness(aux, distancias, pesos);
+			long time_start, time_end;
+			time_start = System.currentTimeMillis();
+			System.out.println(i);
 			Ciudadano ciu =greedy.Procesar(aux, distancias, pesos);
 			permutaciones.add(ciu);
+			time_end = System.currentTimeMillis();
+			System.out.println("the task has taken "+ ( time_end - time_start ) +" milliseconds");
 		}
 
 		int i = 26;
 		int j = permutaciones.size() - 1;
 
 		while (i < j) {
+			System.out.println("8");
 			Ciudadano aux = new Ciudadano();
 			for (int k = 0; k < permutaciones.get(i).mypermutaciones.size(); k++) {
 				if (k % 2 == 0
@@ -393,6 +401,7 @@ public class Evolucion {
 			fit.MyFitness(aux, distancias, pesos);
 			Ciudadano ciu =greedy.Procesar(aux, distancias, pesos);
 			permutaciones.add(ciu);
+			System.out.println("9");
 		}
 
 	}

@@ -61,10 +61,8 @@ public class Main {
 		int max = cantidad - 1;
 		int min = 0;
 		int poblacion = 10;
-		int iteraciones = 5;
+		int iteraciones = 10;
 		ArrayList<Ciudadano> permutaciones = new ArrayList<Ciudadano>();
-		ArrayList<Ciudadano> permutaciones2 = new ArrayList<Ciudadano>();
-		ArrayList<Ciudadano> permutaciones3 = new ArrayList<Ciudadano>();
 		long time_start, time_end;
 		time_start = System.currentTimeMillis();
 		/*
@@ -74,28 +72,15 @@ public class Main {
 		for (int i = 0; i < poblacion; i++) {
 			Ciudadano aux = new Ciudadano();
 			aux.mypermutaciones = permutacion.Permutacion(max, min, cantidad);
-			permutaciones2.add(aux);
+			permutaciones.add(aux);
 		}
-		/*for(int i=0; i<permutaciones.size(); i++){
-			Ciudadano aux2 = new Ciudadano();
-			aux2.myfitness = permutaciones.get(i).myfitness;
-			aux2.mypermutaciones = (ArrayList<Integer>) permutaciones.get(i).mypermutaciones
-					.clone();
-			Ciudadano aux3 = new Ciudadano();
-			aux3.myfitness = permutaciones.get(i).myfitness;
-			aux3.mypermutaciones = (ArrayList<Integer>) permutaciones.get(i).mypermutaciones
-					.clone();
-			permutaciones2.add(aux2);
-			permutaciones3.add(aux3);
-		}*/
 		//fit.CalculoFitness(permutaciones, distancias, pesos, poblacion);
-		fit.CalculoFitnessGreedy(permutaciones2, distancias, pesos, poblacion);
-		//fit.CalculoFitnessGreedyModifica(permutaciones3, distancias, pesos, poblacion);
-
+		//fit.CalculoFitnessGreedy(permutaciones, distancias, pesos, poblacion);
+		fit.CalculoFitnessGreedyModifica(permutaciones, distancias, pesos, poblacion);
 		/*
 		 * Compara los ciudadanos y los odeno en fución de su fitness
 		 */
-		Collections.sort(permutaciones2, new Comparator<Object>() {
+		Collections.sort(permutaciones, new Comparator<Object>() {
 			@Override
 			public int compare(Object o1, Object o2) {
 				// TODO Auto-generated method stub
@@ -105,44 +90,18 @@ public class Main {
 						p2.myfitness));
 			}
 		});
-		
-		/*Collections.sort(permutaciones2, new Comparator<Object>() {
-			@Override
-			public int compare(Object o1, Object o2) {
-				// TODO Auto-generated method stub
-				Ciudadano p1 = (Ciudadano) o1;
-				Ciudadano p2 = (Ciudadano) o2;
-				return new Integer(p1.myfitness).compareTo(new Integer(
-						p2.myfitness));
-			}
-		});
-		
-		Collections.sort(permutaciones3, new Comparator<Object>() {
-			@Override
-			public int compare(Object o1, Object o2) {
-				// TODO Auto-generated method stub
-				Ciudadano p1 = (Ciudadano) o1;
-				Ciudadano p2 = (Ciudadano) o2;
-				return new Integer(p1.myfitness).compareTo(new Integer(
-						p2.myfitness));
-			}
-		});*/
+
 		
 		for (int i = 0; i < iteraciones; i++) {
-			System.out.println("H");
 			/*
 			 * Genero poblacion nueva
 			 */
-			//evo.GenerarPoblacion(permutaciones, distancias, pesos);
-			evo.GenerarPoblacion2(permutaciones2, distancias, pesos);
-			//evo.GenerarPoblacion3(permutaciones3, distancias, pesos);
-			/*for (int p = 0; p < permutaciones.size(); p++) {
-				System.out.println(permutaciones2.get(p).myfitness+" AAA   "+permutaciones3.get(p).myfitness);
-			}*/
+			evo.GenerarPoblacion3(permutaciones, distancias, pesos);
+
 			/*
 			 * Compara los ciudadanos y los odeno en fución de su fitness
 			 */
-			Collections.sort(permutaciones2, new Comparator<Object>() {
+			Collections.sort(permutaciones, new Comparator<Object>() {
 				@Override
 				public int compare(Object o1, Object o2) {
 					// TODO Auto-generated method stub
@@ -175,8 +134,8 @@ public class Main {
 				}
 			});*/
 			
-			for(int j=permutaciones2.size()-1; j>=poblacion; j--){
-				permutaciones2.remove(j);
+			for(int j=permutaciones.size()-1; j>=poblacion; j--){
+				permutaciones.remove(j);
 	
 			}
 			/*for(int j=permutaciones2.size()-1; j>=poblacion; j--){
@@ -191,8 +150,8 @@ public class Main {
 		
 
 		
-		for (int i = 0; i < permutaciones2.size(); i++) {
-			System.out.println(permutaciones2.get(i).myfitness);
+		for (int i = 0; i < permutaciones.size(); i++) {
+			System.out.println(permutaciones.get(i).myfitness);
 		}
 		
 		System.out.println("the task has taken "+ ( time_end - time_start ) +" milliseconds");
