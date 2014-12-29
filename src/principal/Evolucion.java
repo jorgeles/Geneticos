@@ -3,7 +3,9 @@ package principal;
 import java.util.ArrayList;
 
 public class Evolucion {
-
+/*
+ * Operador de cruce para la variante estandar
+ */
 	public void GenerarPoblacion(ArrayList<Ciudadano> permutaciones,
 			ArrayList<ArrayList<Integer>> distancias,
 			ArrayList<ArrayList<Integer>> pesos) {
@@ -133,6 +135,9 @@ public class Evolucion {
 
 	}
 	
+	/*
+	 * Operador de cruce para la variante Baldwiniana
+	 */
 	public void GenerarPoblacion2(ArrayList<Ciudadano> permutaciones,
 			ArrayList<ArrayList<Integer>> distancias,
 			ArrayList<ArrayList<Integer>> pesos) {
@@ -268,6 +273,9 @@ public class Evolucion {
 
 	}
 	
+	/*
+	 * Operador de cruce para la variante Lamarckiana
+	 */
 	public void GenerarPoblacion3(ArrayList<Ciudadano> permutaciones,
 			ArrayList<ArrayList<Integer>> distancias,
 			ArrayList<ArrayList<Integer>> pesos) {
@@ -331,18 +339,15 @@ public class Evolucion {
 			fit.MyFitness(aux, distancias, pesos);
 			long time_start, time_end;
 			time_start = System.currentTimeMillis();
-			System.out.println(i);
 			Ciudadano ciu =greedy.Procesar(aux, distancias, pesos);
 			permutaciones.add(ciu);
 			time_end = System.currentTimeMillis();
-			System.out.println("the task has taken "+ ( time_end - time_start ) +" milliseconds");
 		}
 
 		int i = 26;
 		int j = permutaciones.size() - 1;
 
 		while (i < j) {
-			System.out.println("8");
 			Ciudadano aux = new Ciudadano();
 			for (int k = 0; k < permutaciones.get(i).mypermutaciones.size(); k++) {
 				if (k % 2 == 0
@@ -401,7 +406,6 @@ public class Evolucion {
 			fit.MyFitness(aux, distancias, pesos);
 			Ciudadano ciu =greedy.Procesar(aux, distancias, pesos);
 			permutaciones.add(ciu);
-			System.out.println("9");
 		}
 
 	}

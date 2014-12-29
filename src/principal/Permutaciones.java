@@ -3,7 +3,9 @@ package principal;
 import java.util.ArrayList;
 
 public class Permutaciones {
-	
+	/*
+	 * Genera las permutaciones de tamaño size comprendidas entre min y max
+	 */
 	public ArrayList<Integer> Permutacion(int max, int min,int size){
 		MyRandom random = new MyRandom(max,min);
 		ArrayList<Integer> permutacion = new ArrayList<Integer>();

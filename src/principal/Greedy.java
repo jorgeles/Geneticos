@@ -7,6 +7,9 @@ public class Greedy {
 	private Ciudadano miciudadano;
 	private Ciudadano miciudadano2;
 
+	/*
+	 * Implmentación de un algortimo tipo Greedy
+	 */
 	@SuppressWarnings("unchecked")
 	public Ciudadano Procesar(Ciudadano ciudadano,ArrayList<ArrayList<Integer>> distancias,
 			ArrayList<ArrayList<Integer>> pesos) {
@@ -19,6 +22,7 @@ public class Greedy {
 		miciudadano2.myfitness = ciudadano.myfitness;
 
 		for (int i = 0; i < miciudadano.mypermutaciones.size(); i++) {
+
 			miciudadano2.mypermutaciones = (ArrayList<Integer>) miciudadano.mypermutaciones
 					.clone();
 			for (int j = i + 1; j < miciudadano.mypermutaciones.size(); j++) {

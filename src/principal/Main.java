@@ -60,7 +60,7 @@ public class Main {
 		
 		int max = cantidad - 1;
 		int min = 0;
-		int poblacion = 10;
+		int poblacion = 100;
 		int iteraciones = 10;
 		ArrayList<Ciudadano> permutaciones = new ArrayList<Ciudadano>();
 		long time_start, time_end;
@@ -74,9 +74,14 @@ public class Main {
 			aux.mypermutaciones = permutacion.Permutacion(max, min, cantidad);
 			permutaciones.add(aux);
 		}
-		//fit.CalculoFitness(permutaciones, distancias, pesos, poblacion);
-		//fit.CalculoFitnessGreedy(permutaciones, distancias, pesos, poblacion);
-		fit.CalculoFitnessGreedyModifica(permutaciones, distancias, pesos, poblacion);
+
+		/*
+		 * Descomentar la variación que se desea utilizar
+		 */
+		//fit.CalculoFitness(permutaciones, distancias, pesos, poblacion);//Estandar
+		//fit.CalculoFitnessGreedy(permutaciones, distancias, pesos, poblacion); //Baldwiniano
+		fit.CalculoFitnessGreedyModifica(permutaciones, distancias, pesos, poblacion); //Lamarckiano
+
 		/*
 		 * Compara los ciudadanos y los odeno en fución de su fitness
 		 */
@@ -96,7 +101,13 @@ public class Main {
 			/*
 			 * Genero poblacion nueva
 			 */
-			evo.GenerarPoblacion3(permutaciones, distancias, pesos);
+			
+			/*
+			 * Descomentar la variación que se desea utilizar
+			 */
+			//evo.GenerarPoblacion(permutaciones, distancias, pesos);//Estandar
+			//evo.GenerarPoblacion2(permutaciones, distancias, pesos);//Baldwiniano
+			evo.GenerarPoblacion3(permutaciones, distancias, pesos); //Lamarckiano
 
 			/*
 			 * Compara los ciudadanos y los odeno en fución de su fitness
@@ -111,48 +122,19 @@ public class Main {
 							p2.myfitness));
 				}
 			});
-			
-			/*Collections.sort(permutaciones2, new Comparator<Object>() {
-				@Override
-				public int compare(Object o1, Object o2) {
-					// TODO Auto-generated method stub
-					Ciudadano p1 = (Ciudadano) o1;
-					Ciudadano p2 = (Ciudadano) o2;
-					return new Integer(p1.myfitness).compareTo(new Integer(
-							p2.myfitness));
-				}
-			});
-			
-			Collections.sort(permutaciones3, new Comparator<Object>() {
-				@Override
-				public int compare(Object o1, Object o2) {
-					// TODO Auto-generated method stub
-					Ciudadano p1 = (Ciudadano) o1;
-					Ciudadano p2 = (Ciudadano) o2;
-					return new Integer(p1.myfitness).compareTo(new Integer(
-							p2.myfitness));
-				}
-			});*/
+
 			
 			for(int j=permutaciones.size()-1; j>=poblacion; j--){
 				permutaciones.remove(j);
 	
 			}
-			/*for(int j=permutaciones2.size()-1; j>=poblacion; j--){
-				permutaciones2.remove(j);
-			}
-			for(int j=permutaciones3.size()-1; j>=poblacion; j--){
-				permutaciones3.remove(j);
-			}*/
+		
+			//Imprimimos el mejor de cada iteración
+			System.out.println(permutaciones.get(0).myfitness+" "+i);
+
 		}
 		
 		time_end = System.currentTimeMillis();
-		
-
-		
-		for (int i = 0; i < permutaciones.size(); i++) {
-			System.out.println(permutaciones.get(i).myfitness);
-		}
 		
 		System.out.println("the task has taken "+ ( time_end - time_start ) +" milliseconds");
 
