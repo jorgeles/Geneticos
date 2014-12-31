@@ -1,6 +1,9 @@
 package principal;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 import org.jgap.Chromosome;
 import org.jgap.Configuration;
@@ -36,6 +39,10 @@ public class Main {
 		Fitness fit = new Fitness();
 		Evolucion evo = new Evolucion();
 
+		String tipo = "0";
+		String pobla = null;
+		String itera = null;
+
 		try {
 			Scanner sc = new Scanner(new File("tai256c.dat"));
 			if (sc.hasNextInt()) {
@@ -57,11 +64,38 @@ public class Main {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
+		while (!tipo.equals("1") && !tipo.equals("2") && !tipo.equals("3")) {
+			System.out
+					.println("Introduzca el tipo de algortimo que desea: 1=Estandar; 2=Baldwiniano; 3=Lamarckiano");
+
+			try {
+				BufferedReader entrada = new BufferedReader(
+						new InputStreamReader(System.in));
+				tipo = entrada.readLine();
+			} catch (IOException e) {
+			}
+		}
+
+		System.out.println("Introduzca poblacion maxima par");
+		try {
+			BufferedReader entrada = new BufferedReader(new InputStreamReader(
+					System.in));
+			pobla = entrada.readLine();
+		} catch (IOException e) {
+		}
+		System.out.println("Introduzca Iteraciones maxima");
+		try {
+			BufferedReader entrada = new BufferedReader(new InputStreamReader(
+					System.in));
+			itera = entrada.readLine();
+		} catch (IOException e) {
+		}
+
 		int max = cantidad - 1;
 		int min = 0;
-		int poblacion = 100;
-		int iteraciones = 10;
+		int poblacion = Integer.parseInt(pobla);
+		int iteraciones = Integer.parseInt(itera);
 		ArrayList<Ciudadano> permutaciones = new ArrayList<Ciudadano>();
 		long time_start, time_end;
 		time_start = System.currentTimeMillis();
@@ -74,13 +108,20 @@ public class Main {
 			aux.mypermutaciones = permutacion.Permutacion(max, min, cantidad);
 			permutaciones.add(aux);
 		}
+		
 
 		/*
 		 * Descomentar la variación que se desea utilizar
 		 */
-		//fit.CalculoFitness(permutaciones, distancias, pesos, poblacion);//Estandar
-		//fit.CalculoFitnessGreedy(permutaciones, distancias, pesos, poblacion); //Baldwiniano
-		fit.CalculoFitnessGreedyModifica(permutaciones, distancias, pesos, poblacion); //Lamarckiano
+		if (tipo.equals("1")) {
+			fit.CalculoFitness(permutaciones, distancias, pesos, poblacion);// Estandar
+		} else if (tipo.equals("2")) {
+			fit.CalculoFitnessGreedy(permutaciones, distancias, pesos,
+					poblacion); // Baldwiniano
+		} else {
+			fit.CalculoFitnessGreedyModifica(permutaciones, distancias, pesos,
+					poblacion); // Lamarckiano
+		}
 
 		/*
 		 * Compara los ciudadanos y los odeno en fución de su fitness
@@ -96,18 +137,21 @@ public class Main {
 			}
 		});
 
-		
 		for (int i = 0; i < iteraciones; i++) {
 			/*
 			 * Genero poblacion nueva
 			 */
-			
+
 			/*
 			 * Descomentar la variación que se desea utilizar
 			 */
-			//evo.GenerarPoblacion(permutaciones, distancias, pesos);//Estandar
-			//evo.GenerarPoblacion2(permutaciones, distancias, pesos);//Baldwiniano
-			evo.GenerarPoblacion3(permutaciones, distancias, pesos); //Lamarckiano
+			if (tipo.equals("1")) {
+				evo.GenerarPoblacion(permutaciones, distancias, pesos);// Estandar
+			} else if (tipo.equals("2")) {
+				evo.GenerarPoblacion2(permutaciones, distancias, pesos);// Baldwiniano
+			} else {
+				evo.GenerarPoblacion3(permutaciones, distancias, pesos); // Lamarckiano
+			}
 
 			/*
 			 * Compara los ciudadanos y los odeno en fución de su fitness
@@ -123,20 +167,25 @@ public class Main {
 				}
 			});
 
-			
-			for(int j=permutaciones.size()-1; j>=poblacion; j--){
+			/*
+			 * for(int j=0; j<permutaciones.size(); j++){
+			 * System.out.println(permutaciones.get(j).myfitness); }
+			 */
+
+			for (int j = permutaciones.size() - 1; j >= poblacion; j--) {
 				permutaciones.remove(j);
-	
+
 			}
-		
-			//Imprimimos el mejor de cada iteración
-			System.out.println(permutaciones.get(0).myfitness+" "+i);
+
+			// Imprimimos el mejor de cada iteración
+			System.out.println(permutaciones.get(0).myfitness + " " + i);
 
 		}
-		
+
 		time_end = System.currentTimeMillis();
-		
-		System.out.println("the task has taken "+ ( time_end - time_start ) +" milliseconds");
+
+		System.out.println("the task has taken " + (time_end - time_start)
+				+ " milliseconds");
 
 	}
 }

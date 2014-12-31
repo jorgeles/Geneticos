@@ -1,6 +1,7 @@
 package principal;
 
 import java.util.ArrayList;
+
 /*
  * Clase que calcula el fitness de un individuo o una poblacion
  * con distintas variantes
@@ -16,13 +17,7 @@ public class Fitness {
 
 		for (int i = 0; i < cantidad; i++) {
 			permutaciones.get(i).myfitness = 0;
-			for (int l = 0; l < permutaciones.get(i).mypermutaciones.size()-1; l++) {
-				int fabrica1 = permutaciones.get(i).mypermutaciones.get(l);
-				int fabrica2 = permutaciones.get(i).mypermutaciones.get(l+1);
-				permutaciones.get(i).myfitness = permutaciones.get(i).myfitness
-						+ (distancias.get(l).get(l+1) * pesos.get(fabrica1).get(
-								fabrica2));
-			}
+			MyFitness(permutaciones.get(i), distancias, pesos);
 		}
 
 	}
@@ -37,7 +32,6 @@ public class Fitness {
 
 		CalculoFitness(permutaciones, distancias, pesos, cantidad);
 		for (int i = 0; i < cantidad; i++) {
-
 			Greedy alg = new Greedy();
 			Ciudadano aux = alg.Procesar(permutaciones.get(i), distancias,
 					pesos);
@@ -77,14 +71,18 @@ public class Fitness {
 	public void MyFitness(Ciudadano ciudadano,
 			ArrayList<ArrayList<Integer>> distancias,
 			ArrayList<ArrayList<Integer>> pesos) {
-
 		ciudadano.myfitness = 0;
-		for (int l = 0; l < ciudadano.mypermutaciones.size()-1; l++) {
-			int fabrica1 = ciudadano.mypermutaciones.get(l);
-			int fabrica2 = ciudadano.mypermutaciones.get(l+1);
-			ciudadano.myfitness = ciudadano.myfitness
-					+ (distancias.get(l).get(l+1) * pesos.get(fabrica1).get(
-							fabrica2));
+		for (int i = 0; i < ciudadano.mypermutaciones.size(); i++) {
+			for (int l = 0; l < ciudadano.mypermutaciones.size(); l++) {
+				if (i != l) {
+					int fabrica1 = ciudadano.mypermutaciones.get(i);
+					int fabrica2 = ciudadano.mypermutaciones.get(l);
+					ciudadano.myfitness = ciudadano.myfitness
+							+ (distancias.get(i).get(l) * pesos.get(fabrica1)
+									.get(fabrica2));
+				}
+			}
+			
 		}
 
 	}

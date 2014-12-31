@@ -39,6 +39,7 @@ public class Greedy {
 				}
 
 			}
+
 		}
 		return miciudadano;
 
